@@ -87,6 +87,14 @@
     </section>
   </main>
 
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "44417304d00e404eb293f98a42e538e7"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
+
   <script>
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
@@ -102,6 +110,129 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+    let buttonLog = document.getElementById('error-btns').querySelectorAll('button')[0];
+    buttonLog.addEventListener('click', () => {
+      console.log('Console Log Demo');
+    });
+    let buttonError = document.getElementById('error-btns').querySelectorAll('button')[1];
+    buttonError.addEventListener('click', () => {
+      console.error('Console Error Demo');
+    });
+    let buttonCount = document.getElementById('error-btns').querySelectorAll('button')[2];
+    buttonCount.addEventListener('click', () => {
+      console.count('Console Count Demo');
+    });
+    let buttonWarn = document.getElementById('error-btns').querySelectorAll('button')[3];
+    buttonWarn.addEventListener('click', () => {
+      console.warn('Console Warn Button');
+    });
+    let buttonAssert = document.getElementById('error-btns').querySelectorAll('button')[4];
+    buttonAssert.addEventListener('click', () => {
+      const x = 2;
+      const y = 3;
+      const reasoning = "x is not equal to y"
+      console.assert(x == y, `x value:${x}, y value:${y}, Msg: ${reasoning}`);
+    });
+    let buttonClear = document.getElementById('error-btns').querySelectorAll('button')[5];
+    buttonClear.addEventListener('click', () => {
+      console.clear();
+    });
+    let buttonDir = document.getElementById('error-btns').querySelectorAll('button')[6];
+    buttonDir.addEventListener('click', () => {
+      console.dir(buttonDir);
+    });
+    let buttonDirxml = document.getElementById('error-btns').querySelectorAll('button')[7];
+    buttonDirxml.addEventListener('click', () => {
+      console.dirxml(buttonDirxml);
+    });
+    let buttonGroupStart = document.getElementById('error-btns').querySelectorAll('button')[8];
+    buttonGroupStart.addEventListener('click', () => {
+      console.group('console.group');
+    });
+    let buttonGroupEnd = document.getElementById('error-btns').querySelectorAll('button')[9];
+    buttonGroupEnd.addEventListener('click', () => {
+      console.groupEnd();
+    });
+    let buttonTable = document.getElementById('error-btns').querySelectorAll('button')[10];
+    buttonTable.addEventListener('click', () => {
+      console.table([{
+        class: 'CSE 140',
+        enrolled: 'yes'
+      }, {
+        class: 'CSE 140L',
+        enrolled: 'yes'
+      }, {
+        class: 'COGS 111',
+        enrolled: 'no'
+      }]);
+    });
+    let buttonTimerStart = document.getElementById('error-btns').querySelectorAll('button')[11];
+    buttonTimerStart.addEventListener('click', () => {
+      console.time('Console Timer Demo');
+    });
+    let buttonTimerEnd = document.getElementById('error-btns').querySelectorAll('button')[12];
+    buttonTimerEnd.addEventListener('click', () => {
+      console.timeEnd('Console Timer Demo');
+    });
+    let buttonTrace = document.getElementById('error-btns').querySelectorAll('button')[13];
+    buttonTrace.addEventListener('click', () => {
+      const deep = () => { deeper(); };
+      const deeper = () => { deepest(); };
+      const deepest = () => { click(); };
+      const click = () => { console.trace(); };
+      deep();
+    });
+    let buttonGlobalError = document.getElementById('error-btns').querySelectorAll('button')[14];
+    buttonGlobalError.addEventListener('click', () => {
+        console.log(boon);
+    });
+
+    const changedButton = document.getElementById('error-btns').querySelectorAll('button')[0];;
+    try {
+      let num1 = 15;
+      let num2 = 15;
+      changedButton = document.getElementById('error-btns').querySelectorAll('button')[1];
+    } catch (err) {
+      console.log(err);
+    } finally {
+      console.log("Button 1's innerHtml: " + document.getElementById('error-btns').querySelectorAll('button')[0].innerHTML);
+    }
+
+    try {
+      if(changedButton != document.getElementById('error-btns').querySelectorAll('button')[1]){
+      throw new Error("Button is not the same as Button 2");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    
+
+    function checkButtonIsFirst(button){
+      if(button == document.getElementById('error-btns').querySelectorAll('button')[0]){
+        return true;
+      }
+      else if (button == null){
+        throw new TypeError("Button is null");
+      }
+      else{
+        return false;
+      }
+    }
+
+    try {
+      let button = document.getElementById('error-btns').querySelectorAll('doesnotexist')[0];
+      console.log(checkButtonIsFirst(button));
+    } catch (error) {
+      if (error instanceof TypeError){
+        console.log(error.name + ': ' + error.message + ' ' + error.stack);
+      } else {
+        throw error;
+      }
+    }
+    TrackJS.track('Testing TrackJS!');
+    window.addEventListener('error', function (e) {
+      console.log("Sadly an error happened my friend");
+    });
   </script>
 </body>
 
